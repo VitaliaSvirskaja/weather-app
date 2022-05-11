@@ -22,4 +22,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-/src/giphy-api-key.ts
+/src/weather-api-key.ts

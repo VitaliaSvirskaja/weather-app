@@ -1,12 +1,40 @@
-import { apiKey } from "./giphy-api-key";
+import "./style.css";
+import { getWeather, getWeatherByLongLat } from "./api";
 
-const img = document.querySelector("img");
-fetch(`https://api.giphy.com/v1/gifs/translate?api_key=${apiKey}&s=cats`, {
-  mode: "cors",
-})
-  .then((response) => {
-    console.log(response.json());
-  })
-  .then((response) => {
-    console.log(response);
-  });
+async function displayWeather(city: string) {
+  try {
+    const finalWeather = await getWeather(city);
+    console.log(finalWeather);
+  } catch {
+    console.log("City doesn't exist.");
+  }
+}
+
+const searchbar = document.querySelector("#searchbar") as HTMLInputElement;
+const searchButton = document.querySelector(".search-weather");
+searchButton?.addEventListener("click", async () => {
+  let city = searchbar.value;
+  if (searchbar.value === "" && navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    await displayWeather(city);
+  }
+});
+searchbar.addEventListener("keypress", async (e) => {
+  if (e.key === "Enter") {
+    let city = searchbar.value;
+    if (searchbar.value === "" && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      await displayWeather(city);
+    }
+  }
+});
+
+async function showPosition(position: GeolocationPosition) {
+  console.log(position);
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
+  const finalWeather = await getWeatherByLongLat(longitude, latitude);
+  console.log(finalWeather);
+}
