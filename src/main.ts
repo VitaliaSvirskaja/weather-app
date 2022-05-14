@@ -1,5 +1,5 @@
 import "./style.css";
-import { getWeather, getWeatherByLongLat } from "./api";
+import { getWeatherByCity, getWeatherByLongLat } from "./api";
 
 const searchbar = document.querySelector("#searchbar") as HTMLInputElement;
 const searchButton = document.querySelector(".search-weather");
@@ -24,7 +24,7 @@ async function handleSubmit() {
 
 async function displayWeatherByCity(city: string) {
   try {
-    const weather = await getWeather(city);
+    const weather = await getWeatherByCity(city);
     console.log(weather);
   } catch {
     console.log("City doesn't exist.");
