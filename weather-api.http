@@ -1,0 +1,8 @@
+GET https://api.openweathermap.org/data/2.5/onecall?lat=51.5085&lon=-0.1257&exclude=minutely,alerts&appid={{weather-api-key}}
+Accept: application/json
+
+###
+GET https://api.openweathermap.org/data/2.5/weather?q=london&appid={{weather-api-key}}
+Accept: application/json
+
+###
