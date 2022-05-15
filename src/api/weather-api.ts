@@ -1,7 +1,7 @@
-import { apiKey } from "./weather-api-key";
-import { WeatherApiForecastData } from "./weather-api-forecast-data";
-import { WeatherApiData } from "./weather-api-data";
-import { Position } from "./position";
+import { apiKey } from "../weather-api-key";
+import { WeatherApiForecastData } from "../weather-api-forecast-data";
+import { WeatherApiData } from "../interfaces/weather-api-data";
+import { Position } from "../interfaces/position";
 
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
 

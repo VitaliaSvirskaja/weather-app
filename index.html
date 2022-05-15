@@ -5,13 +5,50 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Vite App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100&display=swap" rel="stylesheet">
 </head>
 <body>
 <main>
-    <div>
+<header>
+    <div class="logo-container">
+        <img src="" alt="Logo">
+    </div>
+    <div class="searchbar-container">
         <input type="text" name="searchbar" id="searchbar">
         <button type="submit" class="search-weather">Search</button>
     </div>
+    <div class="metrics-container">
+        <button class="unit-toggle">°C / °F</button>
+    </div>
+</header>
+    <div class="content">
+        <div class="current-weather">
+            <h2 class="current-city"></h2>
+            <h3 class="current-weather-description"></h3>
+            <p class="current-temperatur"></p>
+            <p class="today-high-low-temperatur"></p>
+        </div>
+        <div class="forecast">
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="felt-temperatur">
+            <p class="footer-title">FEELS LIKE</p>
+            <p class="footer-value">13°</p>
+        </div>
+        <div class="sunrise">
+            <p class="footer-title">SUNRISE</p>
+            <p class="footer-value">06:30</p>
+        </div>
+        <div class="sunset">
+            <p class="footer-title">SUNSET</p>
+            <p class="footer-value">20:30</p>
+        </div>
+    </footer>
 </main>
 
 <script type="module" src="/src/main.ts"></script>

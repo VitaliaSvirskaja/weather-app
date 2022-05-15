@@ -6,7 +6,6 @@ interface Weather {
 interface Hourly {
   dt: number;
   temp: number;
-  feels_like: number;
   weather: Array<Weather>;
 }
 
@@ -16,6 +15,8 @@ interface Daily {
   sunset: number;
   temp: {
     day: number;
+    min: number;
+    max: number;
   };
   weather: Array<Weather>;
 }
