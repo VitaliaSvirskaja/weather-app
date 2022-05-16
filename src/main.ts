@@ -23,6 +23,7 @@ const todayHighLowTemperatur = document.querySelector(
 const feltTemperatur = document.querySelector(".felt-temperatur");
 const sunrise = document.querySelector(".sunrise");
 const sunset = document.querySelector(".sunset");
+const forecastContainer = document.querySelector(".forecast");
 
 //EVENTLISTENERS
 searchButton?.addEventListener("click", async () => {
@@ -58,7 +59,6 @@ async function displayWeatherByCity() {
     weatherState = await getWeatherByCity(city);
     console.log(weatherState);
     renderWeather();
-    showWeatherByHour(weatherState);
   } catch {
     console.log("City doesn't exist.");
   }
@@ -89,19 +89,47 @@ function renderWeather() {
   feltTemperatur!.innerHTML = Math.round(convert(feels_like)) + metric;
   getSunriseTime(weatherState);
   getSunsetTime(weatherState);
+  showWeatherByHour(weatherState);
 }
 
 function showWeatherByHour(weatherApiForecastData: WeatherApiForecastData) {
-  const time = new Date(weatherApiForecastData.hourly[0].dt * 1000);
-  const hours = time.getHours();
-  const temperaturByHour = Math.round(
-    weatherApiForecastData.hourly[0].temp
-  ).toString();
-  console.log(temperaturByHour + metric);
-  console.log(hours);
+  const hourlyWeather = weatherApiForecastData.hourly.slice(0, 13);
+  console.log(hourlyWeather);
+  forecastContainer!.innerHTML = "";
+  hourlyWeather.forEach((weatherByHour) => {
+    const time = new Date(weatherByHour.dt * 1000);
+    const hours = time.getHours();
+    const hourlyTemperatur = Math.round(weatherByHour.temp).toString();
+    const weatherImage = weatherByHour.weather[0].icon;
+    console.log(hourlyTemperatur + metric);
+    console.log(hours);
+    displayWeatherByHour(hours, hourlyTemperatur, weatherImage);
+  });
 }
 
-//To Do Function "displayWeather erstellen, welche beim durchiterieren das Wetter im Frontend anzeigt (basierend auf hourly interface)
+function displayWeatherByHour(
+  hours: number,
+  hourlyTemperatur: string,
+  weatherImage: string
+) {
+  const weatherByHourTemplate = document.querySelector(
+    "#weatherByHour-template"
+  ) as HTMLTemplateElement;
+  const weatherByHour = document.createElement("div");
+  weatherByHour.append(weatherByHourTemplate.content.cloneNode(true));
+  if (hours < 10) {
+    weatherByHour.querySelector(".hour")!.textContent = "0" + hours.toString();
+  } else {
+    weatherByHour.querySelector(".hour")!.textContent = hours.toString();
+  }
+  weatherByHour.querySelector(".temperaturByHour")!.textContent =
+    hourlyTemperatur + metric;
+  const weatherIcon = weatherByHour.querySelector(
+    "#weatherIcon"
+  ) as HTMLImageElement;
+  weatherIcon.src = `http://openweathermap.org/img/wn/${weatherImage}@2x.png`;
+  forecastContainer?.append(weatherByHour);
+}
 
 function getSunriseTime(weather: WeatherApiForecastData) {
   const sunriseTime = new Date(weather.daily[0].sunrise * 1000);
