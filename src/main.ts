@@ -69,7 +69,6 @@ async function displayWeatherByPosition(position: GeolocationPosition) {
   weatherState = await getWeatherByLongLat(longitude, latitude);
   city = await getCityByPosition(latitude, longitude);
   renderWeather();
-  console.log(weatherState);
 }
 
 function renderWeather() {
@@ -94,12 +93,11 @@ function renderWeather() {
 
 function showWeatherByHour(weatherApiForecastData: WeatherApiForecastData) {
   const hourlyWeather = weatherApiForecastData.hourly.slice(0, 13);
-  console.log(hourlyWeather);
   forecastContainer!.innerHTML = "";
   hourlyWeather.forEach((weatherByHour) => {
     const time = new Date(weatherByHour.dt * 1000);
     const hours = time.getHours();
-    const hourlyTemperatur = Math.round(weatherByHour.temp).toString();
+    const hourlyTemperatur = Math.round(convert(weatherByHour.temp)).toString();
     const weatherImage = weatherByHour.weather[0].icon;
     console.log(hourlyTemperatur + metric);
     console.log(hours);
