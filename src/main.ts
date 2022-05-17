@@ -24,6 +24,7 @@ const feltTemperatur = document.querySelector(".felt-temperatur");
 const sunrise = document.querySelector(".sunrise");
 const sunset = document.querySelector(".sunset");
 const forecastContainer = document.querySelector(".forecast");
+const loader = document.querySelector(".loader") as HTMLDivElement;
 
 //EVENTLISTENERS
 searchButton?.addEventListener("click", async () => {
@@ -68,6 +69,7 @@ async function displayWeatherByPosition(position: GeolocationPosition) {
   const { latitude, longitude } = position.coords;
   weatherState = await getWeatherByLongLat(longitude, latitude);
   city = await getCityByPosition(latitude, longitude);
+  loader.style.visibility = "hidden";
   renderWeather();
 }
 
